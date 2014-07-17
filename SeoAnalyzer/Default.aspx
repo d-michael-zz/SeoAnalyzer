@@ -31,6 +31,7 @@
             <br />
             <asp:Label ID="Label3" runat="server" Text="Words in meta tags"></asp:Label>
             <asp:GridView ID="GridView2" runat="server" AllowSorting="True" OnSorting="GridView2_Sorting"></asp:GridView>
+            <br />
             <asp:Label ID="Label2" runat="server" Text="Each word count"></asp:Label>
             <br />
             <asp:GridView ID="GridView1" runat="server" AllowSorting="True" OnSorting="GridView1_Sorting">
