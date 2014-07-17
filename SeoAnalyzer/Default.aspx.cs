@@ -27,12 +27,12 @@ namespace SeoAnalyzer
                 //string Url = "http://www.sitecore.net/ukraine";
                 //string Url = "http://ru.wikipedia.org/w/index.php?title=OpenStructure&action=edit&redlink=1";
                 string Url = Input.Text;
-                if (!Url.ToLower().StartsWith("http://") || !Url.ToLower().StartsWith("https://"))
+                if (!Url.ToLower().StartsWith("http://") && !Url.ToLower().StartsWith("https://"))
                 {
                     Url = "http://" + Url;
                 }
                 htmlDoc = web.Load(Url);
-                Label1.Text = "";
+                //Label1.Text = "";
                 foreach (var script in htmlDoc.DocumentNode.Descendants("script").ToArray())
                     script.Remove();
                 foreach (var style in htmlDoc.DocumentNode.Descendants("style").ToArray())
