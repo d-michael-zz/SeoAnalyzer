@@ -24,24 +24,13 @@ namespace SeoAnalyzer
             string input_text = "";
             if (RadioButtonList1.Items[1].Selected)
             {
-                //string Url = "http://www.sitecore.net/ukraine";
-                //string Url = "http://ru.wikipedia.org/w/index.php?title=OpenStructure&action=edit&redlink=1";
                 string Url = Input.Text;
                 if (!Url.ToLower().StartsWith("http://") && !Url.ToLower().StartsWith("https://"))
                 {
                     Url = "http://" + Url;
                 }
                 htmlDoc = web.Load(Url);
-                //Label1.Text = "";
-                foreach (var script in htmlDoc.DocumentNode.Descendants("script").ToArray())
-                    script.Remove();
-                foreach (var style in htmlDoc.DocumentNode.Descendants("style").ToArray())
-                    style.Remove();
-                foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//text()"))
-                {
-                    //Label1.Text = Label1.Text + node.InnerText + " ";
-                    input_text = input_text + node.InnerText + " ";
-                }
+                input_text = HtmlAnalyzer.GetTextFromHtml(htmlDoc);
             }
 
             if (RadioButtonList1.Items[0].Selected)
@@ -75,16 +64,10 @@ namespace SeoAnalyzer
             GridView2.Visible = false;
             if ((CheckBoxList1.Items[2].Selected) && (RadioButtonList1.Items[1].Selected))
             {
-                HtmlNode hnode = htmlDoc.DocumentNode.SelectSingleNode("//meta[@name='keywords']");
-                if (hnode != null)
+                Dictionary<string, int> meta_words = new Dictionary<string, int>();
+                meta_words = HtmlAnalyzer.GetMetaWords(words, htmlDoc);
+                if (meta_words.Count != 0)
                 {
-                    HtmlAttribute desc;
-                    desc = hnode.Attributes["content"];
-                    string keywords = desc.Value;
-
-                    Dictionary<string, int> meta_words = new Dictionary<string, int>();
-                    meta_words = Filter.GetMetaWords(words, keywords);
-
                     GridView2.Visible = true;
                     GridView2.DataSource = meta_words.ToList();
                     GridView2.DataBind();
@@ -92,19 +75,19 @@ namespace SeoAnalyzer
                 else
                 {
                     GridView2.Visible = false;
-                    Label3.Text = "No keywords meta tag";
+                    Label3.Text = "No meta keywords";
                 }
             }
 
             //External links count
             if ((CheckBoxList1.Items[3].Selected) && (RadioButtonList1.Items[1].Selected))
             {
-                int link_count = 0;
-                foreach (HtmlNode link in htmlDoc.DocumentNode.SelectNodes("//a[@href]"))
-                {
-                    link_count++;
-                }
-                Label4.Text = "Number of links: " + link_count.ToString();
+                Label4.Visible = true;
+                Label4.Text = "Number of links: " + HtmlAnalyzer.GetCount(htmlDoc).ToString();
+            }
+            else
+            {
+                Label4.Visible = false;
             }
         }
 

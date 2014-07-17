@@ -54,8 +54,6 @@ namespace SeoAnalyzer
 
         public static Dictionary<string, int> GetMetaWords(Dictionary<string, int> words, string meta_words)
         {
-            //Dictionary<string, int> meta_words_dict = new Dictionary<string, int>();
-            //meta_words_dict = words;
             char[] delimiterChars = { ' ', ',', '!', '?', ';', '.', ':', '-', '\t', '\n','\r', '\u00A0', '\u0026', '|',
                                         '/', '\\', '*', '}', '{', '—', ']', '[', '(', ')' };
             List<string> temp_meta_words = new List<string>(meta_words.ToLower().Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries));
@@ -73,7 +71,6 @@ namespace SeoAnalyzer
                 flag = false;
             }
 
-            //return meta_words_dict;
             return words;
         }
     }
