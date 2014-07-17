@@ -22,13 +22,13 @@ namespace SeoAnalyzer {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Label1 control.
+        /// InfoString control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label InfoString;
         
         /// <summary>
         /// Input control.
@@ -40,31 +40,31 @@ namespace SeoAnalyzer {
         protected global::System.Web.UI.WebControls.TextBox Input;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// TextValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator TextValidator;
         
         /// <summary>
-        /// RadioButtonList1 control.
+        /// TextOrUrl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList1;
+        protected global::System.Web.UI.WebControls.RadioButtonList TextOrUrl;
         
         /// <summary>
-        /// CheckBoxList1 control.
+        /// AnalysisOpt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxList1;
+        protected global::System.Web.UI.WebControls.CheckBoxList AnalysisOpt;
         
         /// <summary>
         /// StartBtn control.
@@ -76,48 +76,48 @@ namespace SeoAnalyzer {
         protected global::System.Web.UI.WebControls.Button StartBtn;
         
         /// <summary>
-        /// Label4 control.
+        /// LinksNum control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.Label LinksNum;
         
         /// <summary>
-        /// Label3 control.
+        /// MetaWordsInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label MetaWordsInfo;
         
         /// <summary>
-        /// GridView2 control.
+        /// MetaWordsGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView2;
+        protected global::System.Web.UI.WebControls.GridView MetaWordsGrid;
         
         /// <summary>
-        /// Label2 control.
+        /// WordCountString control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label WordCountString;
         
         /// <summary>
-        /// GridView1 control.
+        /// WordsGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView WordsGrid;
     }
 }

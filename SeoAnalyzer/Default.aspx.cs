@@ -23,7 +23,7 @@ namespace SeoAnalyzer
             HtmlDocument htmlDoc = new HtmlDocument();
             string input_text = "";
             bool wrong_url = false;
-            if (RadioButtonList1.Items[1].Selected)
+            if (TextOrUrl.Items[1].Selected)
             {
                 string Url = Input.Text;
                 if (!Url.ToLower().StartsWith("http://") && !Url.ToLower().StartsWith("https://"))
@@ -37,12 +37,12 @@ namespace SeoAnalyzer
                 }
                 catch (WebException ex)
                 {
-                    Label1.Text = ex.Message;
+                    InfoString.Text = ex.Message;
                     wrong_url = true;
                 }
             }
 
-            if (RadioButtonList1.Items[0].Selected)
+            if (TextOrUrl.Items[0].Selected)
             {
                 input_text = Input.Text;
             }
@@ -52,51 +52,51 @@ namespace SeoAnalyzer
             words = Filter.GetDict(input_text);
 
             //Filter stop words
-            if (CheckBoxList1.Items[0].Selected)
+            if (AnalysisOpt.Items[0].Selected)
             {
                 Filter.RemoveStopWords(words);
             }
 
             //Word counts
-            if (CheckBoxList1.Items[1].Selected)
+            if (AnalysisOpt.Items[1].Selected)
             {
-                GridView1.Visible = true;
-                GridView1.DataSource = words.ToList();
-                GridView1.DataBind();
+                WordsGrid.Visible = true;
+                WordsGrid.DataSource = words.ToList();
+                WordsGrid.DataBind();
             }
             else
             {
-                GridView1.Visible = false;
+                WordsGrid.Visible = false;
             }
 
             //Words in meta tags
-            GridView2.Visible = false;
-            if ((CheckBoxList1.Items[2].Selected) && (RadioButtonList1.Items[1].Selected) && (wrong_url != true))
+            MetaWordsGrid.Visible = false;
+            if ((AnalysisOpt.Items[2].Selected) && (TextOrUrl.Items[1].Selected) && (wrong_url != true))
             {
                 Dictionary<string, int> meta_words = new Dictionary<string, int>();
                 meta_words = HtmlAnalyzer.GetMetaWords(words, htmlDoc);
                 if (meta_words.Count != 0)
                 {
-                    GridView2.Visible = true;
-                    GridView2.DataSource = meta_words.ToList();
-                    GridView2.DataBind();
+                    MetaWordsGrid.Visible = true;
+                    MetaWordsGrid.DataSource = meta_words.ToList();
+                    MetaWordsGrid.DataBind();
                 }
                 else
                 {
-                    GridView2.Visible = false;
-                    Label3.Text = "No meta keywords";
+                    MetaWordsGrid.Visible = false;
+                    MetaWordsInfo.Text = "No meta keywords";
                 }
             }
 
             //External links count
-            if ((CheckBoxList1.Items[3].Selected) && (RadioButtonList1.Items[1].Selected) && (wrong_url != true))
+            if ((AnalysisOpt.Items[3].Selected) && (TextOrUrl.Items[1].Selected) && (wrong_url != true))
             {
-                Label4.Visible = true;
-                Label4.Text = "Number of links: " + HtmlAnalyzer.GetCount(htmlDoc).ToString();
+                LinksNum.Visible = true;
+                LinksNum.Text = "Number of links: " + HtmlAnalyzer.GetCount(htmlDoc).ToString();
             }
             else
             {
-                Label4.Visible = false;
+                LinksNum.Visible = false;
             }
         }
 
@@ -119,7 +119,7 @@ namespace SeoAnalyzer
             dt.Columns.Add("Key");
             dt.Columns.Add("Value", typeof(int));
 
-            foreach (GridViewRow row in GridView1.Rows)
+            foreach (GridViewRow row in WordsGrid.Rows)
             {
                 DataRow dr;
                 dr = dt.NewRow();
@@ -134,8 +134,8 @@ namespace SeoAnalyzer
             if (dt != null)
             {
                 dt.DefaultView.Sort = e.SortExpression + " " + GridViewSortDirection(e.SortExpression);
-                GridView1.DataSource = dt;
-                GridView1.DataBind();
+                WordsGrid.DataSource = dt;
+                WordsGrid.DataBind();
             }
         }
 
@@ -145,7 +145,7 @@ namespace SeoAnalyzer
             dt.Columns.Add("Key");
             dt.Columns.Add("Value", typeof(int));
 
-            foreach (GridViewRow row in GridView2.Rows)
+            foreach (GridViewRow row in MetaWordsGrid.Rows)
             {
                 DataRow dr;
                 dr = dt.NewRow();
@@ -160,8 +160,8 @@ namespace SeoAnalyzer
             if (dt != null)
             {
                 dt.DefaultView.Sort = e.SortExpression + " " + GridViewSortDirection(e.SortExpression);
-                GridView2.DataSource = dt;
-                GridView2.DataBind();
+                MetaWordsGrid.DataSource = dt;
+                MetaWordsGrid.DataBind();
             }
         }
 
