@@ -12,7 +12,8 @@ namespace SeoAnalyzer
             string re_s = "";
             re_s = s.ToLower();
             //Add additional chars if needed
-            char[] delimiterChars = { ' ', ',', '!', '?', ';', '.', ':', '-', '\t' };
+            char[] delimiterChars = { ' ', ',', '!', '?', ';', '.', ':', '-', '\t', '\n', '\r', '\u00A0', '\u0026', '|',
+                                        '/', '\\', '*', '}', '{', '—', ']', '[', '(', ')' };
             List<string> words = new List<string>(re_s.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries));
             
             Dictionary<string, int> words_with_count = new Dictionary<string, int>();
@@ -37,7 +38,8 @@ namespace SeoAnalyzer
             temp_w = words;
 
             //list of stop words, can be expanded
-            List<string> stop_words = new List<string>() { "a", "an", "and", "are", "no", "yes", "or", "the" };
+            List<string> stop_words = new List<string>() { "a", "an", "and", "any", "are", "no", "yes", "or", "the", "in", 
+                "is", "to", "by", "this", "of", "i", "for", "we", "all", "it", "from" };
 
             foreach (string s in stop_words)
             {
@@ -54,7 +56,8 @@ namespace SeoAnalyzer
         {
             //Dictionary<string, int> meta_words_dict = new Dictionary<string, int>();
             //meta_words_dict = words;
-            char[] delimiterChars = { ' ', ',', '!', '?', ';', '.', ':', '-', '\t' };
+            char[] delimiterChars = { ' ', ',', '!', '?', ';', '.', ':', '-', '\t', '\n','\r', '\u00A0', '\u0026', '|',
+                                        '/', '\\', '*', '}', '{', '—', ']', '[', '(', ')' };
             List<string> temp_meta_words = new List<string>(meta_words.ToLower().Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries));
             bool flag = false;
 

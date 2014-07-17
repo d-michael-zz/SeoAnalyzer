@@ -24,12 +24,15 @@ namespace SeoAnalyzer
             string input_text = "";
             if (RadioButtonList1.Items[1].Selected)
             {
-                string Url = "http://www.sitecore.net/ukraine";
+                //string Url = "http://www.sitecore.net/ukraine";
                 //string Url = "http://ru.wikipedia.org/w/index.php?title=OpenStructure&action=edit&redlink=1";
+                string Url = Input.Text;
                 htmlDoc = web.Load(Url);
                 Label1.Text = "";
                 foreach (var script in htmlDoc.DocumentNode.Descendants("script").ToArray())
                     script.Remove();
+                foreach (var style in htmlDoc.DocumentNode.Descendants("style").ToArray())
+                    style.Remove();
                 foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//text()"))
                 {
                     //Label1.Text = Label1.Text + node.InnerText + " ";
@@ -66,8 +69,8 @@ namespace SeoAnalyzer
 
             //Words in meta tags
             GridView2.Visible = false;
-            //if ((CheckBoxList1.Items[2].Selected) && (RadioButtonList1.Items[1].Selected))
-            //{
+            if ((CheckBoxList1.Items[2].Selected) && (RadioButtonList1.Items[1].Selected))
+            {
                 HtmlNode hnode = htmlDoc.DocumentNode.SelectSingleNode("//meta[@name='keywords']");
                 if (hnode != null)
                 {
@@ -87,7 +90,7 @@ namespace SeoAnalyzer
                     GridView2.Visible = false;
                     Label3.Text = "No keywords meta tag";
                 }
-            //}
+            }
 
             //External links count
             if ((CheckBoxList1.Items[3].Selected) && (RadioButtonList1.Items[1].Selected))
@@ -97,7 +100,7 @@ namespace SeoAnalyzer
                 {
                     link_count++;
                 }
-                Label4.Text = "Number of links in text: " + link_count.ToString();
+                Label4.Text = "Number of links: " + link_count.ToString();
             }
         }
 
@@ -117,9 +120,8 @@ namespace SeoAnalyzer
         protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
         {
             DataTable dt = new DataTable();
-            //dt = (DataTable)GridView1.DataSource;
             dt.Columns.Add("Key");
-            dt.Columns.Add("Value");
+            dt.Columns.Add("Value", typeof(int));
 
             foreach (GridViewRow row in GridView1.Rows)
             {
@@ -128,7 +130,7 @@ namespace SeoAnalyzer
 
                 for (int i = 0; i < row.Cells.Count; i++)
                 {
-                    dr[i] = row.Cells[i].Text.Replace(" ", "");
+                    dr[i] = row.Cells[i].Text;
                 }
                 dt.Rows.Add(dr);
             }
@@ -138,6 +140,32 @@ namespace SeoAnalyzer
                 dt.DefaultView.Sort = e.SortExpression + " " + GridViewSortDirection(e.SortExpression);
                 GridView1.DataSource = dt;
                 GridView1.DataBind();
+            }
+        }
+
+        protected void GridView2_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Key");
+            dt.Columns.Add("Value", typeof(int));
+
+            foreach (GridViewRow row in GridView2.Rows)
+            {
+                DataRow dr;
+                dr = dt.NewRow();
+
+                for (int i = 0; i < row.Cells.Count; i++)
+                {
+                    dr[i] = row.Cells[i].Text;
+                }
+                dt.Rows.Add(dr);
+            }
+
+            if (dt != null)
+            {
+                dt.DefaultView.Sort = e.SortExpression + " " + GridViewSortDirection(e.SortExpression);
+                GridView2.DataSource = dt;
+                GridView2.DataBind();
             }
         }
 
