@@ -22,6 +22,7 @@ namespace SeoAnalyzer
             HtmlWeb web = new HtmlWeb();
             HtmlDocument htmlDoc = new HtmlDocument();
             string input_text = "";
+            bool wrong_url = false;
             if (RadioButtonList1.Items[1].Selected)
             {
                 string Url = Input.Text;
@@ -29,8 +30,16 @@ namespace SeoAnalyzer
                 {
                     Url = "http://" + Url;
                 }
-                htmlDoc = web.Load(Url);
-                input_text = HtmlAnalyzer.GetTextFromHtml(htmlDoc);
+                try
+                {
+                    htmlDoc = web.Load(Url);
+                    input_text = HtmlAnalyzer.GetTextFromHtml(htmlDoc);
+                }
+                catch (WebException ex)
+                {
+                    Label1.Text = ex.Message;
+                    wrong_url = true;
+                }
             }
 
             if (RadioButtonList1.Items[0].Selected)
@@ -62,7 +71,7 @@ namespace SeoAnalyzer
 
             //Words in meta tags
             GridView2.Visible = false;
-            if ((CheckBoxList1.Items[2].Selected) && (RadioButtonList1.Items[1].Selected))
+            if ((CheckBoxList1.Items[2].Selected) && (RadioButtonList1.Items[1].Selected) && (wrong_url != true))
             {
                 Dictionary<string, int> meta_words = new Dictionary<string, int>();
                 meta_words = HtmlAnalyzer.GetMetaWords(words, htmlDoc);
@@ -80,7 +89,7 @@ namespace SeoAnalyzer
             }
 
             //External links count
-            if ((CheckBoxList1.Items[3].Selected) && (RadioButtonList1.Items[1].Selected))
+            if ((CheckBoxList1.Items[3].Selected) && (RadioButtonList1.Items[1].Selected) && (wrong_url != true))
             {
                 Label4.Visible = true;
                 Label4.Text = "Number of links: " + HtmlAnalyzer.GetCount(htmlDoc).ToString();
